@@ -60,7 +60,6 @@ go = function(x,y,z) {
   s1.move(angles[1]);
   s2.move(angles[2]);
   s3.move(angles[3]);
-  console.log(angles);
 }
 
 position = function() {
@@ -74,6 +73,8 @@ reload = function () {
 app.listen(8011);
 
 myIo = io;
+
+ballet = require('./ballet.js');
 
 function handler (req, res) {
   var file = "/client.html",
