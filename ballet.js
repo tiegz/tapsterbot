@@ -10,6 +10,7 @@
   var zTarget = -140;
   var speed = 20;
   var zStartTime;
+  var scale = 1;
   doingUpDown = false;
   doingCircle = false;
 
@@ -37,7 +38,8 @@
     if (zStartTime === undefined) { zStartTime = new Date(); }
     var millsSinceStart = (new Date()) - zStartTime;
 
-    var pct = millsSinceStart / timeToUpDown;
+    //var pct = millsSinceStart / timeToUpDown;
+    var pct = scale;
 
     // var upDown = (pct % 2 < 1) ? -1 : 1;
     // z += upDown;
@@ -49,6 +51,9 @@
       p = zStart; zStart = zTarget; zTarget = p;
     }
   }
+
+  exports.setScale = function(val) { scale = val; }
+  exports.getScale = function() { return scale; }
 
   exports.startCircle = function () { doingCircle = true; }
   exports.endCircle = function () { doingCircle = false; }

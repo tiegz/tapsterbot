@@ -15,11 +15,26 @@ board.on("ready", function() {
   var servo1 = five.Servo({pin: 9});
   var servo2 = five.Servo({pin: 10});
   var servo3 = five.Servo({pin: 11});
+  var pot = new five.Sensor({
+    pin: "A2",
+    freq: 20
+  });
+
+  pot.on("read", function( err, value ) {
+    scale = parseInt(((this.normalized + 20) / 255) * 100);
+    scale = scale / 100;
+//    console.log("pot1 ", value, this.normalized );
+    if (ballet.getScale() != scale) {
+      console.log("Scale:", scale)
+      ballet.setScale(scale);
+    }
+  });
 
   board.repl.inject({
     servo1: servo1, s1: servo1,
     servo2: servo2, s2: servo2,
-    servo3: servo3, s3: servo3
+    servo3: servo3, s3: servo3, 
+    pot: pot
   });
 
   var max = 42;
@@ -78,6 +93,9 @@ reload = function () {
 app.listen(8011);
 
 myIo = io;
+
+ballet = require('./ballet.js');
+
 
 function handler (req, res) {
   var file = "/client.html",
